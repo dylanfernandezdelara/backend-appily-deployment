@@ -10,7 +10,7 @@
     "build": "tsc --p ./tsconfig.prod.json",
     "build:clean": "rm -rf build",
     "dev": "NODE_ENV=dev nodemon -L src/index.ts",
-    "start": "node build/index.js",
+    "start": "NODE_ENV=prod nodemon -L src/index.ts",
     "test": "NODE_ENV=test jest --config ./src/testUtils/jest.config.js"
   },
   "dependencies": {
