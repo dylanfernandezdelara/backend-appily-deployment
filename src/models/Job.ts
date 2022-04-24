@@ -1,5 +1,5 @@
-import mongoose, { Schema, Types } from "mongoose";
-import { IJob, ICompany } from "../types";
+import mongoose, { Schema } from "mongoose";
+import { IJob } from "../types";
 import {Company} from "../models";
 
 const STAGES = ["Wishlist", "Submitted", "OA", "Interview", "Offer", "Rejected"];
@@ -10,8 +10,10 @@ const JobSchema = new mongoose.Schema({
     required: true
   },
   companyID:{
-    type: Schema.Types.ObjectId,
-    required: true
+    type: Schema.Types.ObjectId
+  },
+  customCompany:{
+    type: String
   },
   jobTitle:{
     type: String,
@@ -30,14 +32,20 @@ const JobSchema = new mongoose.Schema({
   },
   details:{
     type: String
+  },
+  location:{
+    type: String
+  },
+  contacts:{
+    type: String
   }
 });
 
-JobSchema.set('toJSON', {
+JobSchema.set("toJSON", {
   virtuals: true
 });
 
-JobSchema.set('toObject', {
+JobSchema.set("toObject", {
   virtuals: true
 });
 
@@ -52,7 +60,7 @@ JobSchema.virtual("company", {
   localField: "companyID",
   foreignField: "_id",
   justOne: true
-})
+});
 
 JobSchema.methods.getCompanyName = async function(){
   const company = await Company.findById(this.companyID);

@@ -8,16 +8,16 @@ import { sendTestMail, sendDigestToUser } from "../mailer";
 const router = Router();
 
 
-router.post('/testmail', async (req: Request, res: Response) => {
+router.post("/testmail", async (req: Request, res: Response) => {
   //make mailable object
-  let info = await sendTestMail();
+  const info = await sendTestMail();
   console.log("Message sent: %s", info.messageId);
   return res.status(200).send({message:"All Good! Message Sent"});
 });
 
-router.post('/testdiject', async (req: Request, res: Response) => {
+router.post("/testdiject", async (req: Request, res: Response) => {
   //make mailable object
-  let info = await sendDigestToUser(" sfdsfd");
+  const info = await sendDigestToUser(" sfdsfd");
   console.log("Message sent: %s", info.messageId);
   return res.status(200).send({message:"All Good! Message Sent"});
 });

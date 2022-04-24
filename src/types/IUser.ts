@@ -7,5 +7,5 @@ export interface IUser {
   password: string;
   jobs?: IJob[];
   todos?: ITodo[];
-  checkPassword?: (password: string) => Boolean;
-};
+  checkPassword?: (password: string) => boolean;
+}

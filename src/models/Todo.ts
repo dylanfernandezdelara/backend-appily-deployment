@@ -10,8 +10,14 @@ const TodoSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
+  companyID:{
+    type: Schema.Types.ObjectId
+  },
   deadline:{
     type: Date,
+  },
+  startDate:{
+    type: Date
   },
   description:{
     type: String
@@ -21,6 +27,21 @@ const TodoSchema = new Schema({
     required: true,
     default: false
   }
+});
+
+TodoSchema.set("toJSON", {
+  virtuals: true
+});
+
+TodoSchema.set("toObject", {
+  virtuals: true
+});
+
+TodoSchema.virtual("company", {
+  ref: "Company",
+  localField: "companyID",
+  foreignField: "_id",
+  justOne: true
 });
 
 export const Todo = mongoose.model<ITodo & mongoose.Document>("Todo", TodoSchema);

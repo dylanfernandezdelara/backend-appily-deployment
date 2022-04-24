@@ -4,7 +4,7 @@ import { Job, User } from "../models";
 
 const router = Router();
 
-router.get('/:userID/jobs', async (req: Request, res: Response) => {
+router.get("/:userID/jobs", async (req: Request, res: Response) => {
   const filter = { _id: req.params.userID };
   try{
     const user = await User.findOne(filter);
@@ -14,7 +14,7 @@ router.get('/:userID/jobs', async (req: Request, res: Response) => {
         populate: {
           path: "company"
         }
-      })
+      });
       res.send(user.jobs);
     }
     else{
@@ -25,15 +25,18 @@ router.get('/:userID/jobs', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/:userID/todos', async (req: Request, res: Response) => {
+router.get("/:userID/todos", async (req: Request, res: Response) => {
   const filter = { _id: req.params.userID };
   try{
     const user = await User.findOne(filter);
     if(user){
-      user.populate("todos", (err: CallbackError) => {
-        if(err) return res.status(500).send("A database error occurred.");
-        res.json(user.todos);
+      await user.populate({
+        path: "todos",
+        populate: {
+          path: "company"
+        }
       });
+      res.send(user.todos);
     }
     else{
       res.status(500).send("User not found.");

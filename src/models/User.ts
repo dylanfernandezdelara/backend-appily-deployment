@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from "../types"
+import { IUser } from "../types";
 
 const UserSchema = new mongoose.Schema({
   email:{
@@ -14,21 +14,21 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.set('toJSON', {
+UserSchema.set("toJSON", {
   virtuals: true
 });
 
-UserSchema.set('toObject', {
+UserSchema.set("toObject", {
   virtuals: true
 });
 
-UserSchema.pre('save', function(next){
+UserSchema.pre("save", function(next){
   this.password = bcrypt.hashSync(this.password, 10);
   next();
 });
 
 UserSchema.methods.checkPassword = function(password: string) {
-  return bcrypt.compareSync(password, this.password)
+  return bcrypt.compareSync(password, this.password);
 };
 
 UserSchema.virtual("jobs", {
@@ -41,7 +41,7 @@ UserSchema.virtual("todos", {
   ref: "Todo",
   localField: "_id",
   foreignField: "userID"
-})
+});
 
 export const User = mongoose.model<IUser & mongoose.Document>("User", UserSchema);
 export default User;
