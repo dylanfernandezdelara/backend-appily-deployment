@@ -1,10 +1,10 @@
 import cors from "cors";
 import express from "express";
-import { isCI, isDevelopment, isTest } from "./utils/environment";
+import { isCI, isDevelopment, isTest, isProduction } from "./utils/environment";
 import routes from "./routes";
 
-const bypassCors = isCI() || isDevelopment() || isTest();
-const allowList = new Set(["https://appily-portal.herokuapp.com/"]);
+const bypassCors = isCI() || isDevelopment() || isTest() || isProduction();
+const allowList = new Set(["https://appily-portal.herokuapp.com/*"]);
 
 const corsOptions = {
   origin: (origin: string, callback: any) => {
