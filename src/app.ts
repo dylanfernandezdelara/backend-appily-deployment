@@ -4,7 +4,7 @@ import { isCI, isDevelopment, isTest } from "./utils/environment";
 import routes from "./routes";
 
 const bypassCors = isCI() || isDevelopment() || isTest();
-const allowList = new Set(["http://localhost:3000"]);
+const allowList = new Set(["https://appily-portal.herokuapp.com/"]);
 
 const corsOptions = {
   origin: (origin: string, callback: any) => {
